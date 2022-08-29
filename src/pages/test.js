@@ -51,8 +51,8 @@ function Test() {
       // Configuration
 
       // Insert product data
-      const response = await API.post("/productadmin", formData, config);
-      navigate("/admin");
+      const response = await API.post("/product", formData, config);
+      navigate("/productadmin");
     } catch (error) {
       console.log(error);
     }
@@ -125,6 +125,7 @@ function Test() {
                     onChange={handleChange}
                     placeholder="Photo Product"
                     name="image"
+                    hidden
                   />
                 </Col>
                 <Col className="d-flex justify-content-center">
