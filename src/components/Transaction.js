@@ -106,7 +106,7 @@ export default function Transaction() {
         </div>
         <p className="statusTransaction mt-2" >On the Way</p>
         <p className="miniText" style={{
-        color: "#BD0707"}}><b>Total: {convertRupiah.convert(jumlah)}</b></p>
+        color: "#BD0707"}}><b>Total: {convertRupiah.convert(item.total)}</b></p>
         <p className="miniText"></p>
         </Col>
       </Row>

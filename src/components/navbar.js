@@ -5,14 +5,41 @@ import { Container, Navbar, Nav, Dropdown, Col, Row } from "react-bootstrap";
 import { DataProfil } from "../datadummy/dataprofil";
 import Logout from "../assets/logout.png";
 import User from "../assets/user.png";
+import Kopi from "../assets/kopi.png";
 import Triangle from "../assets/triangle.svg";
 import { useNavigate } from "react-router-dom";
 import { Usercontext } from "../context/usercontext";
+import { useState } from "react";
+import { API } from "../config/api";
+import { useEffect } from "react";
 
 function NavbarUser({ show }) {
   const navigate = useNavigate();
 
   const [state, dispatch] = useContext(Usercontext);
+  const [qty, setQty] = useState([null])
+  const [carts, setCarts] = useState([])
+
+  
+
+  const getCart = async () => {
+    try {
+      const response = await API.get("/carts-id");
+      setCarts(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cartdata = carts?.filter((item) => {
+    return item.transaction_id === null
+  })
+
+  console.log(cartdata.length);
+
+  useEffect(() => {
+    getCart();
+  }, []);
 
   const handleProfile = () => {
     navigate("/profile");
@@ -38,7 +65,7 @@ function NavbarUser({ show }) {
     <div>
       <div>
         <Container className="">
-          <Navbar className="mt-5 d-flex justify-content-between">
+          <Navbar className="d-flex justify-content-between">
             <Nav className="">
               <img
                 onClick={handleHome}
@@ -59,7 +86,7 @@ function NavbarUser({ show }) {
                       right: "120px",
                     }}
                   >
-                    {show}
+                    {cartdata.length}
                   </span>
 
                   {DataProfil.map((item, index) => {
@@ -73,7 +100,7 @@ function NavbarUser({ show }) {
                           >
                             <img
                               className="profilAccount ms-4"
-                              src={item.photo}
+                              src={Kopi}
                             />
                           </Dropdown.Toggle>
 

@@ -9,11 +9,13 @@ import convertRupiah from "rupiah-format";
 import { useMutation } from "react-query";
 import { Usercontext } from "../context/usercontext"
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function DetailProduct() {
   const [addCart, setAddCart] = useState(null);
   console.log(addCart);
+  let navigate = useNavigate()
 
   const [state] = useContext(Usercontext)
   
@@ -39,6 +41,7 @@ export default function DetailProduct() {
   };
 
   const toppingprice = new Array(datatopping.fill(false));
+  const [toppingcheck, setToppingcheck] = useState(false)
 
   console.log();
 
@@ -80,6 +83,8 @@ export default function DetailProduct() {
 
   const sum = prices.reduce((partialsum, a) => partialsum + a, 0);
   console.log(sum);
+
+  
 
   // const sum = prices.reduce((prev, next) => prev + next, 0);
   // setTotal(sum);
@@ -127,6 +132,16 @@ export default function DetailProduct() {
 
   //
 let subtotal= response?.price + sum;
+console.log(subtotal);
+
+
+// if (sum = 0) {
+//     setToppingcheck(false)
+//   } else {
+//     setToppingcheck(true)
+//   }
+
+//   console.log(toppingcheck);
 
   const handleSubmit = useMutation(async (e) => {
     try {
@@ -145,6 +160,8 @@ let subtotal= response?.price + sum;
 
       const response = await API.post("/cart", body, config);
       console.log(body);
+
+      navigate("/cart")
       
       
     } catch (error) {
@@ -197,7 +214,7 @@ let subtotal= response?.price + sum;
                                 <label htmlFor={`custom-checkbox-${index}`}>
                                   <img
                                     className="r"
-                                    style={{ width: "100%" }}
+                                    style={{ width: "60%" }}
                                     src={item.image}
                                   />
                                 </label>

@@ -44,9 +44,9 @@
 
 .cartTransaction {
   border-radius: 10px;
-    background: #ffffff;
+    background: #c5c4c4;
       box-shadow: 20px 20px 60px #d9d9d9,
-        -20px -20px 60px #ffffff;
+        -20px -20px 60px #e3e1e1;
 }
 
 .miniText {
@@ -151,4 +151,17 @@ border-radius: 50%
   font-weight: 700;
   color: rgb(44, 196, 44);
   border: none;
+}
+
+.landingPages {
+  background-color: #e1dbdb;
+}
+
+.cards {
+  background: linear-gradient(rgba(248, 166, 59, 0.473), rgba(255, 149, 149, 0.603));
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+}
+
+.propil {
+  background-color: #c5c4c4;
 }

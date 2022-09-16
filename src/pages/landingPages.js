@@ -2,13 +2,15 @@ import React, { useState, useContext, useEffect } from "react";
 import Logo from "../assets/logo.png";
 import Desain from "../assets/Jumbotron.png";
 import "../landingPages.css";
-import { Container, Col, Row, Card, Navbar, Nav } from "react-bootstrap";
+import { Container, Col, Row, Card, Navbar, Nav, Modal } from "react-bootstrap";
 import AuthModal from "../components/AuthModal";
 import { useNavigate } from "react-router-dom";
 import { Usercontext } from "../context/usercontext";
 import NavbarUser from "../components/navbar";
 import { API } from "../config/api";
 import convertRupiah from "rupiah-format";
+import LoginAuth from "../components/auth/login";
+import RegisterAuth from "../components/auth/register";
 
 function LandingPages() {
   const [state, dispatch] = useContext(Usercontext);
@@ -18,6 +20,25 @@ function LandingPages() {
   const [user, setUser] = React.useContext(Usercontext);
 
   const [dataproduct, setDataproduct] = useState([]);
+
+  const [show, setShow] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleCloseRegister = () => setShowRegister(false);
+  const handleShowRegister = () => setShowRegister(true);
+
+  function SwitchLogin() {
+    setShow(false);
+    setShowRegister(true);
+  }
+  function SwitchRegister() {
+    setShowRegister(false);
+    setShow(true);
+  }
+
 
   useEffect(() => {
     const dataproduct = async () => {
@@ -37,6 +58,8 @@ function LandingPages() {
 
   let subscribe = state.isLogin;
   console.log(subscribe);
+
+
 
   console.log(state);
 
@@ -72,39 +95,68 @@ function LandingPages() {
             />
           </div>
           <div className="m-5">
-            <div style={{ color: "#BD0707" }}>
+            <div>
               <h1 className="">Let's order</h1>
             </div>
-            <div className="d-flex mt-3 justify-content-center">
+            <Row>
               {dataproduct.map((item, index) => (
-                <Card
+                <Col md={3} xs={6}
                   key={index}
-                  className="me-3"
-                  style={{
-                    width: "18rem",
-                    backgroundColor: "#F6DADA",
-                    borderRadius: "10px",
-                  }}
+                  
                 >
-                  <Card.Img
-                    variant="top"
+                  <div className="cards mt-3"
+                  style={{
+                    borderRadius: "10px", height: "90%"
+                  }}>
+                  {subscribe ? (<img
+                    className=""
                     src={item.image}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer", height: "75%", width: "100%", borderRadius: "8px" }}
                     onClick={() => movetoDetail(item?.id)}
-                  />
+                  /> ) : (<img
+                    className=""
+                    src={item.image}
+                    style={{ cursor: "pointer", height: "75%", width: "100%", borderRadius: "8px" }}
+                    onClick={handleShowRegister}
+                  />)}
+                  
 
-                  <Card.Body>
-                    <Card.Title style={{ color: "#BD0707" }}>
+                  
+                    <h3 className='ms-2' style={{ color: "#BD0707", fontSize: "100%" }}>
                       {item.title}
-                    </Card.Title>
-                    <Card.Text>{convertRupiah.convert(item?.price)}</Card.Text>
-                  </Card.Body>
-                </Card>
+                    </h3>
+                    <p className='ms-2' style={{ fontSize: "80%" }}>{convertRupiah.convert(item?.price)}</p>
+                  </div>
+                </Col>
               ))}
-            </div>
+            </Row>
           </div>
         </Container>
       </div>
+      <Modal show={show} onHide={handleClose}>
+        <div className="m-4">
+          <Modal.Title>
+            <h1 className="mb-4">Login</h1>
+          </Modal.Title>
+          <LoginAuth />
+
+          <p className="mt-4" style={{ color: "black" }}>
+            Don't have an account ? click{" "}
+            <a onClick={SwitchLogin} style={{ cursor: "pointer" }}>
+              <b>Here</b>
+            </a>
+          </p>
+        </div>
+      </Modal>
+
+      <Modal show={showRegister} onHide={handleCloseRegister}>
+        <div className="p-2">
+        
+            <p>Please login or register !</p>
+        
+          
+        </div>
+      </Modal>
     </div>
   );
 }

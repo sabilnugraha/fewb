@@ -176,18 +176,20 @@ export default function Cart() {
                             </p>
                             <p>{convertRupiah.convert(item?.product?.price)}</p>
                           </Col>
-                          <Col className="d-flex justify-content-between">
-                            <span >Topping :</span>
+                          <Col className="d-flex justify-content">
+                            <div className="col-11">
+                            <span  >Topping :</span>
                             
                           
                             {item?.Topping?.map((topping, idx) => (
                               
-                              <span className="d-inline" key={idx}>{topping.title}{","}</span>
+                              <span key={idx}>{(idx ? ', ': ' ') + topping.title}</span>
                             ))}
                             
-                            
+                            </div>
                             <img
                               src={Icon}
+                            
                               alt=""
                               style={{ width: "20px", height: "20px" }}
                             />
@@ -201,20 +203,18 @@ export default function Cart() {
               </Col>
               <Col md={4}>
                 <hr />
-                {cartdata.map((item, index) => {
-                  return(
+              
                     <>
                 <Col className="d-flex justify-content-between">
                   <p>SubTotal</p>
-                  <p>{convertRupiah.convert(item.subtotal)}</p>
+                  <p>{convertRupiah.convert(resultTotal)}</p>
                 </Col>
                 <Col className="d-flex justify-content-between">
                   <p>Qty</p>
-                  {/* <p>{qty}</p> */}
+                  <p>{cartdata.length}</p>
                 </Col>
                 </>
-                  )
-                })}
+                  
                 <hr />
                 
                 

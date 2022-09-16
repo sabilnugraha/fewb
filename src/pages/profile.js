@@ -18,7 +18,7 @@ function Profile() {
 
   
   return (
-    <div>
+    <div className="propil">
       <NavbarUser />
       <Container className="bodyProfile p-5 ps-5">
         <Row className="ps-5">
@@ -30,16 +30,7 @@ function Profile() {
               
                   <div>
                     <Row>
-                      <Col className="" sm={6}>
-                        <img
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            borderRadius: "5px",
-                          }}
-                          
-                        />
-                      </Col>
+              
                       <Col sm={6}>
                         <div>
                           <h3 style={{ color: "#BD0707" }}>Full Name</h3>
